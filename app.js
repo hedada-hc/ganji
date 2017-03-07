@@ -8,8 +8,7 @@ function CreateWindow(){
 	win = new BrowserWindow({
 		width:800,
 		height:800,
-		movable:true,
-		frame:false
+		movable:true
 	})
 	win.loadURL(`file://${__dirname}/index.html`)
 	win.webContents.openDevTools()

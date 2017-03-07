@@ -8,10 +8,12 @@
 <div id="app">
 	<button @click="Login()">获取cookie</button>
 	<button @click="getLoginUrl()">开始登录</button>
-	<button @click="PostIng()">发布招聘</button>
+	<button @click="test()">login</button>
+	<button @click="get()">get</button>
+	<button @click="Posts()">test</button>
+	<button @click="Getinfo()">获取详细信息</button>
 	<input type="text" v-model='code' name="">
-	<input type="text" v-model='title' name="" placeholder="招聘标题">
-	<input type="text" v-model='zhiwei' name="" placeholder="招聘职位">
+	<textarea v-model='title'></textarea>
 	<img :src="codeurl">
 </div>
 <script type="text/javascript" src="./vue.js"></script>

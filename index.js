@@ -3,6 +3,7 @@ const async = require("async")
 const request = require("request")
 const fs = require('fs')
 const config = require("./config")
+const Gj = require("./Gj")
 
 const v = new Vue({
 	el:"#app",
@@ -14,7 +15,8 @@ const v = new Vue({
 		code:'',
 		codeurl:'',
 		title:'',
-		zhiwei:''
+		zhiwei:'',
+		GANJISESSID:''
 	},methods:{
 		Login(){
 			async.waterfall([
@@ -71,8 +73,9 @@ const v = new Vue({
 				.end((error,msg)=>{
 					if(/<title>【(.*?)】-赶集网<\/title>/.exec(msg.text)[1] == "登录成功"){
 						console.log(msg,msg.header['set-cookie'])
-						v.cookie += v.StrCookie(msg.header['set-cookie'])
+						v.cookie += v.StrCookie(msg.header['set-cookie']) +'; ganji_uuid=1234567891234567891234'
 						console.log("登录成功啦，可以发帖啦！")
+						console.log(v.cookie)
 					}else{
 						console.log(msg.text)
 						console.log("没能登录成功，还不能发布帖子！")
@@ -82,9 +85,8 @@ const v = new Vue({
 			var url = 'http://www.ganji.com/pub/pub.php?cid=2&mcid=&act=pub&method=submit&domain=wh&source=select&from=uc&puid='
 			var data = config.replace(/-title-/,this.title)
 			data = data.replace(/-zhiwei-/,this.zhiwei)
-			console.log(data)
 			sa.post(url)
-				.set("Content-Type","multipart/form-data; boundary=----WebKitFormBoundaryvNp5ANGtKjNB4ze6")
+				.set("Content-Type","multipart/form-data; boundary=----WebKitFormBoundaryyORp4mMwpr1YzYcp")
 				.set('Cookie',v.cookie)
 				.set("User-Agent","Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36")
 				.set("Referer","http://www.ganji.com/pub/pub.php?act=pub&method=load&cid=2&domain=wh&from=uc&_pdt=zhaopin")
@@ -95,8 +97,9 @@ const v = new Vue({
 						console.log(msg.text,"招聘发布成功")
 						v.GetLimit()
 					}else{
-						console.log("招聘发布失败！")
+						console.log(v.cookie,"招聘发布失败！")
 					}
+					console.log(msg.text)
 				})
 		},GetLimit(){
 			var url = `http://www.ganji.com/ajax.php?dir=zhaopin&module=get_user_company_info`
@@ -109,18 +112,27 @@ const v = new Vue({
 		},StrCookie(cookie){
 			var tmp = ''
 			for(var i=0;i<cookie.length;i++){
-				//if(!/tbcp=/.test(cookie[i])){
 					if(tmp == ''){
 						tmp += `${cookie[i].split(";")[0]}`
 					}else{
 						tmp += `; ${cookie[i].split(";")[0]}`
 					}
-				//}
 			}
 			return tmp
+		},test(){
+			Gj.Login()
+		},get(){
+			Gj.getLoginUrl()
+		},Posts(){
+			Gj.PostAi()
+		},Getinfo(){
+			Gj.GetInfo()
 		}
+
 	}
 })
+
+
 
 
 
