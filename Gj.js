@@ -77,7 +77,7 @@ class Gj{
 	LoginCookie(url){
 		sa.get(url)
 			.set("cookie",v.cookie)
-			.end((err,msg)=>{
+			.end((err,msg)=>{															
 				v.cookie += `${new Gj().StrCookie(msg.header['set-cookie'])};ganji_uuid=1234567891234567891234`
 				console.log(v.cookie)
 			})
@@ -118,8 +118,36 @@ class Gj{
 			.set('cookie',v.GANJISESSID)
 			.end((err,msg)=>{
 				var json = JSON.parse(msg.text)
-				console.log(msg,json)
+				if(new Gj().UserInitInfo(json)){
+					console.log(v.work_address_info,v.info)
+				}
 			})
+	}
+
+	//设置info值
+	UserInitInfo(json){
+		if(json.login == true){
+
+			json.work_address_info = json.work_address_info[0]
+
+			v.info.login = json.login
+			//发布量
+			v.userPostLimit.limit = json.userPostLimit.limit
+			v.userPostLimit.count = json.userPostLimit.count
+
+			//账户信息
+			v.work_address_info.city = json.work_address_info.city
+			v.work_address_info.district_id = json.work_address_info.district_id
+			v.work_address_info.id = json.work_address_info.id
+			v.work_address_info.latlng = json.work_address_info.latlng
+			v.work_address_info.work_address = json.work_address_info.work_address
+
+			v.info.street = json.info.street
+			v.info.contact_phone = json.info.contact_phone
+			v.info.district = json.info.district
+			return true
+		}
+		return false
 	}
 }
 

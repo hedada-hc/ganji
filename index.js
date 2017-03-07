@@ -16,7 +16,23 @@ const v = new Vue({
 		codeurl:'',
 		title:'',
 		zhiwei:'',
-		GANJISESSID:''
+		GANJISESSID:'',
+		userPostLimit:{
+			limit:0,
+			count:0
+		},
+		work_address_info:{
+			city:"",
+			district_id:"",
+			id:"",
+			latlng:"",
+			work_address:""
+		},info:{
+			login:false,
+			street:"",
+			contact_phone:"",
+			district:""
+		}
 	},methods:{
 		Login(){
 			async.waterfall([

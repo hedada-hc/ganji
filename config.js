@@ -82,11 +82,11 @@ Content-Disposition: form-data; name="fee_money"
 ------WebKitFormBoundaryyORp4mMwpr1YzYcp
 Content-Disposition: form-data; name="new_work_address"
 
-||||
+194|2215|3790|171号|b114.350971,30.564652
 ------WebKitFormBoundaryyORp4mMwpr1YzYcp
 Content-Disposition: form-data; name="new_work_address_id"
 
-338456
+338450
 ------WebKitFormBoundaryyORp4mMwpr1YzYcp
 Content-Disposition: form-data; name="person"
 

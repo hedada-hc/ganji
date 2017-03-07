@@ -15,6 +15,7 @@
 	<input type="text" v-model='code' name="">
 	<textarea v-model='title'></textarea>
 	<img :src="codeurl">
+	  <span v-if="info.login">还可发 {{userPostLimit.limit}} 条,已经发了 {{userPostLimit.count}}</span>
 </div>
 <script type="text/javascript" src="./vue.js"></script>
 <script type="text/javascript" src="./index.js"></script>
